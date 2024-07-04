@@ -23,6 +23,15 @@ const {
   WG_POST_UP,
   WG_PRE_DOWN,
   WG_POST_DOWN,
+  AWG_JC,
+  AWG_JMIN,
+  AWG_JMAX,
+  AWG_S1,
+  AWG_S2,
+  AWG_H1,
+  AWG_H2,
+  AWG_H3,
+  AWG_H4,
 } = require('../config');
 
 module.exports = class WireGuard {
@@ -96,6 +105,15 @@ module.exports = class WireGuard {
 PrivateKey = ${config.server.privateKey}
 Address = ${config.server.address}/24
 ListenPort = ${WG_PORT}
+Jc = ${AWG_JC}
+Jmin = ${AWG_JMIN}
+Jmax = ${AWG_JMAX}
+S1 = ${AWG_S1}
+S2 = ${AWG_S2}
+H1 = ${AWG_H1}
+H2 = ${AWG_H2}
+H3 = ${AWG_H3}
+H4 = ${AWG_H4}
 PreUp = ${WG_PRE_UP}
 PostUp = ${WG_POST_UP}
 PreDown = ${WG_PRE_DOWN}
@@ -202,6 +220,15 @@ PrivateKey = ${client.privateKey ? `${client.privateKey}` : 'REPLACE_ME'}
 Address = ${client.address}/24
 ${WG_DEFAULT_DNS ? `DNS = ${WG_DEFAULT_DNS}\n` : ''}\
 ${WG_MTU ? `MTU = ${WG_MTU}\n` : ''}\
+Jc = ${AWG_JC}
+Jmin = ${AWG_JMIN}
+Jmax = ${AWG_JMAX}
+S1 = ${AWG_S1}
+S2 = ${AWG_S2}
+H1 = ${AWG_H1}
+H2 = ${AWG_H2}
+H3 = ${AWG_H3}
+H4 = ${AWG_H4}
 
 [Peer]
 PublicKey = ${config.server.publicKey}

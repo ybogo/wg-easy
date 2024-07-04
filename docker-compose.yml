@@ -6,16 +6,34 @@ services:
     environment:
       # Change Language:
       # (Supports: en, ua, ru, tr, no, pl, fr, de, ca, es, ko, vi, nl, is, pt, chs, cht, it, th, hi)
-      - LANG=de
+      - LANG=en
       # ⚠️ Required:
       # Change this to your host's public address
-      - WG_HOST=raspberrypi.local
-
+      - WG_HOST=10.10.254.47
+      - WG_PATH=/etc/amnezia/amneziawg/
+      # - AWG_JC=3
+      # - AWG_JMIN=50
+      # - AWG_JMAX=1000
+      # - AWG_S1=88
+      # - AWG_S2=28
+      # - AWG_H1=1211620644
+      # - AWG_H2=1243252812
+      # - AWG_H3=973157458
+      # - AWG_H4=1052671299
+      - AWG_JC=2
+      - AWG_JMIN=50
+      - AWG_JMAX=1000
+      - AWG_S1=15
+      - AWG_S2=115
+      - AWG_H1=6
+      - AWG_H2=7
+      - AWG_H3=8
+      - AWG_H4=9
       # Optional:
       # - PASSWORD=foobar123 (deprecated, see readme)
       # - PASSWORD_HASH=$$2y$$10$$hBCoykrB95WSzuV4fafBzOHWKu9sbyVa34GJr8VV5R/pIelfEMYyG (needs double $$, hash of 'foobar123'; see "How_to_generate_an_bcrypt_hash.md" for generate the hash)
       # - PORT=51821
-      # - WG_PORT=51820
+      - WG_PORT=51822
       # - WG_CONFIG_PORT=92820
       # - WG_DEFAULT_ADDRESS=10.8.0.x
       # - WG_DEFAULT_DNS=1.1.1.1
@@ -26,16 +44,18 @@ services:
       # - WG_POST_UP=echo "Post Up" > /etc/wireguard/post-up.txt
       # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
       # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
-      # - UI_TRAFFIC_STATS=true
-      # - UI_CHART_TYPE=0 # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
+      - UI_TRAFFIC_STATS=true
+      - UI_CHART_TYPE=2 # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
 
-    image: ghcr.io/wg-easy/wg-easy
-    container_name: wg-easy
+    image: wg-easy
+    container_name: wg-easy-awg
     volumes:
-      - etc_wireguard:/etc/wireguard
+      - etc_wireguard:/etc/amnezia
     ports:
-      - "51820:51820/udp"
-      - "51821:51821/tcp"
+      - "51822:51822/udp"
+      - "51823:51821/tcp"
+    privileged: true
+    # network_mode: "host"
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
@@ -44,3 +64,4 @@ services:
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
+    # command: ["/usr/bin/dumb-init", "node", "server.js", "&&", "sleep", "1000"]

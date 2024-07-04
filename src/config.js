@@ -35,6 +35,17 @@ iptables -D INPUT -p udp -m udp --dport ${module.exports.WG_PORT} -j ACCEPT;
 iptables -D FORWARD -i wg0 -j ACCEPT;
 iptables -D FORWARD -o wg0 -j ACCEPT;
 `.split('\n').join(' ');
+
+module.exports.AWG_JC = process.env.AWG_JC || 0;
+module.exports.AWG_JMIN = process.env.AWG_JMIN || 0;
+module.exports.AWG_JMAX = process.env.AWG_JMAX || 0;
+module.exports.AWG_S1 = process.env.AWG_S1 || 0;
+module.exports.AWG_S2 = process.env.AWG_S2 || 0;
+module.exports.AWG_H1 = process.env.AWG_H1 || 1;
+module.exports.AWG_H2 = process.env.AWG_H2 || 2;
+module.exports.AWG_H3 = process.env.AWG_H3 || 3;
+module.exports.AWG_H4 = process.env.AWG_H4 || 4;
+
 module.exports.LANG = process.env.LANG || 'en';
 module.exports.UI_TRAFFIC_STATS = process.env.UI_TRAFFIC_STATS || 'false';
 module.exports.UI_CHART_TYPE = process.env.UI_CHART_TYPE || 0;
